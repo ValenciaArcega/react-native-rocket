@@ -33,3 +33,13 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# Prebuild and more
+ios/
+android/
+.vs/
+.vscode/
+eas.json
+variables.ts
+obj
+bin
