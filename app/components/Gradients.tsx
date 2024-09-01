@@ -6,7 +6,7 @@ import { CustomLinearGradientProps } from "@/app/types/componentProps";
 export function CustomLinearGradient({
 	children,
 	style,
-	colors = [appColors.bgWhite, appColors.bgGray],
+	colors = [appColors.p400, appColors.p600],
 	horizontal = false
 }: CustomLinearGradientProps) {
 	const start = horizontal ? { x: 0, y: 0 } : { x: 0, y: 0 };
@@ -22,7 +22,7 @@ export function CustomLinearGradient({
 				alignItems: "center",
 				justifyContent: "center",
 				flexDirection: "row",
-				gap: 6,
+				gap: 7,
 				...style,
 			}}
 			colors={colors}>

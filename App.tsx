@@ -4,18 +4,21 @@ import { UserContext } from '@/app/context/UserContext';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SplashScreenHandler from "@/app/core/splashscreen/SplashScreen"
 import Router from '@/app/routes/Router';
+import { KeyboardAvoiderProvider } from '@good-react-native/keyboard-avoider';
 
 export default function App() {
   return <NavigationContainer>
     <UserContext>
       <GestureHandlerRootView>
-        <SplashScreenHandler>
-          <StatusBar
-            style="auto"
-            translucent={true}
-            backgroundColor="transparent" />
-          <Router />
-        </SplashScreenHandler>
+        <KeyboardAvoiderProvider>
+          <SplashScreenHandler>
+            <StatusBar
+              style="auto"
+              translucent={true}
+              backgroundColor="transparent" />
+            <Router />
+          </SplashScreenHandler>
+        </KeyboardAvoiderProvider>
       </GestureHandlerRootView>
     </UserContext>
   </NavigationContainer>

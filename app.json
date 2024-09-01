@@ -26,6 +26,7 @@
       }
     },
     "android": {
+      "softwareKeyboardLayoutMode": "pan",
       "userInterfaceStyle": "automatic",
       "package": "com.valenciaarcega.rocket",
       "adaptiveIcon": {
