@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from '@/app/core/login/Login';
+import ForgotPassword from '../core/login/ForgotPassword';
 
 export function RouterNoSession() {
 	const stack = createNativeStackNavigator()
@@ -34,6 +35,16 @@ export function RouterNoSession() {
 				name="Login"
 				component={Login}
 				options={{ headerShown: false, animation: "fade" }} />
+			<stack.Screen
+				name="ForgotPassword"
+				component={ForgotPassword}
+				options={{
+					presentation: "modal",
+					headerLargeTitle: false,
+					title: "Recuperar contraseña",
+					gestureEnabled: false,
+					animation: "slide_from_bottom"
+				}} />
 		</stack.Navigator>
 	)
 }

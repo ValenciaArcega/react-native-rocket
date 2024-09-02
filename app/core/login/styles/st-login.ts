@@ -31,5 +31,24 @@ export const stylesLogin = StyleSheet.create({
 		borderRadius: 18,
 		alignItems: "center",
 		justifyContent: "center",
+	},
+	txtForgotPass: {
+		fontSize: 16,
+		textAlign: "right",
+		color: ac.p700,
+		textDecorationLine: "underline",
+		marginTop: 14,
+	},
+	txtSignUp: {
+		marginTop: 22,
+		fontSize: 18,
+		color: "#181818",
+		textAlign: "center",
+	},
+	txtSignUpPress: {
+		textDecorationColor: ac.s600,
+		textDecorationLine: "underline",
+		width: "100%",
+		color: ac.p600,
 	}
 })

@@ -4,6 +4,8 @@
  * Add the @Form_RoutinePlan
  * Dark mode on init app
  * Change padding 22 for 20 percent using standard dimensions
+ * Add the calendar native component
+ * Create the OTP screen
  */
 
 /**

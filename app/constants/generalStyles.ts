@@ -5,6 +5,10 @@ export const gs = StyleSheet.create({
 	container: {
 		flex: 1,
 	},
+	containerBg: {
+		flex: 1,
+		backgroundColor: ac.bgWhite,
+	},
 	containerTight: {
 		flex: 1,
 		paddingHorizontal: 20,
@@ -22,16 +26,17 @@ export const gs = StyleSheet.create({
 	input__basic: {
 		height: 60,
 		marginTop: 4,
-		paddingHorizontal: 12,
+		paddingHorizontal: 16,
 		fontSize: 18,
-		borderRadius: 16,
+		borderRadius: 24,
 		backgroundColor: ac.bgInput,
 	},
 	btnBase: {
-		maxHeight: 60,
+		minHeight: 64,
+		maxHeight: 64,
 		width: "100%",
 		marginTop: 24,
-		borderRadius: 18,
+		borderRadius: 24,
 		overflow: "hidden",
 		backgroundColor: ac.p600,
 		alignItems: "center",
