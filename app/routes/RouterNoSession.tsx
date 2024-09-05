@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from '@/app/core/login/Login';
 import ForgotPassword from '../core/login/ForgotPassword';
+import SignUp from '../core/login/SignUp';
 
 export function RouterNoSession() {
 	const stack = createNativeStackNavigator()
@@ -34,6 +35,10 @@ export function RouterNoSession() {
 			<stack.Screen
 				name="Login"
 				component={Login}
+				options={{ headerShown: false, animation: "fade" }} />
+			<stack.Screen
+				name="SignUp"
+				component={SignUp}
 				options={{ headerShown: false, animation: "fade" }} />
 			<stack.Screen
 				name="ForgotPassword"

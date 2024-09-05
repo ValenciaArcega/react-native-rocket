@@ -4,7 +4,7 @@ import { UserContext } from '@/app/context/UserContext';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SplashScreenHandler from "@/app/core/splashscreen/SplashScreen"
 import Router from '@/app/routes/Router';
-import { KeyboardAvoiderProvider } from '@good-react-native/keyboard-avoider';
+import { KeyboardAvoiderProvider } from "@/app/components/KeyboardScroll";
 
 export default function App() {
   return <NavigationContainer>

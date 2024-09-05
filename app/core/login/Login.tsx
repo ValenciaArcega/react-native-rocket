@@ -115,7 +115,7 @@ export default function Login() {
 				<Text style={s.txtSignUp}>¿No tienes una cuenta?{"\n"}
 					<Text
 						style={s.txtSignUpPress}
-						onPress={() => navigateTo("UserType")}>
+						onPress={() => navigateTo("SignUp")}>
 						Registrate ahora</Text>.
 				</Text>
 			</View>
