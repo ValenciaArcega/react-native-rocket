@@ -6,6 +6,8 @@ import SplashScreenHandler from "@/app/core/splashscreen/SplashScreen"
 import Router from '@/app/routes/Router';
 import { KeyboardAvoiderProvider } from "@/app/components/KeyboardScroll";
 
+// migration! 
+
 export default function App() {
   return <NavigationContainer>
     <UserContext>
