@@ -10,6 +10,7 @@ import { MSG } from "@/app/constants/labels";
 import { REG_EMAIL } from "@/app/constants/regularExpressions";
 import { useNavigateApp } from "@/app/hooks/useNavigateApp";
 import { KeyboardScroll } from "@/app/components/KeyboardScroll";
+import { AvoiderKeyboard } from "@/app/components/AvoiderKeyboard";
 
 export default function Login() {
 	const { navigateTo } = useNavigateApp()
@@ -46,8 +47,8 @@ export default function Login() {
 
 	return <ImageBackground
 		source={require("@/assets/img/login/app-login-bg.png")}
-		style={gs.containerTight}>
-		<KeyboardScroll>
+		style={gs.containerBg}>
+		<AvoiderKeyboard>
 			<View style={s.wrapperForm}>
 				<View style={gs.circleIcon}>
 					<FontAwesome5 name="user-lock" size={36} color="white" />
@@ -119,6 +120,6 @@ export default function Login() {
 						Registrate ahora</Text>.
 				</Text>
 			</View>
-		</KeyboardScroll>
+		</AvoiderKeyboard>
 	</ImageBackground>
 }

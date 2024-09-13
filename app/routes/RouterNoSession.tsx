@@ -35,11 +35,11 @@ export function RouterNoSession() {
 			<stack.Screen
 				name="Login"
 				component={Login}
-				options={{ headerShown: false, animation: "fade" }} />
+				options={{ headerShown: false, animation: "slide_from_right" }} />
 			<stack.Screen
 				name="SignUp"
 				component={SignUp}
-				options={{ headerShown: false, animation: "fade" }} />
+				options={{ headerShown: false, animation: "slide_from_right" }} />
 			<stack.Screen
 				name="ForgotPassword"
 				component={ForgotPassword}

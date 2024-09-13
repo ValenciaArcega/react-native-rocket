@@ -175,7 +175,6 @@ export default function KeyboardAvoiderScrollView({
 
 		if (Platform.OS == 'android') {
 			androidPannedBy.current = Math.max(0, inputBottomY - keyboardY);
-			console.log("Panned by: ", androidPannedBy.current)
 			const s = Math.max(y - keyboardY + extraSpace - androidPannedBy.current, 0);
 			scrollBy(s)
 			return;

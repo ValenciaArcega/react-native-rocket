@@ -5,7 +5,8 @@ import { StyleSheet } from "react-native";
 export const stylesLogin = StyleSheet.create({
 	wrapperForm: {
 		flex: 1,
-		justifyContent: "center",
+		paddingTop: "50%",
+		paddingHorizontal: 20,
 	},
 	titleLogin: {
 		marginTop: 18,
