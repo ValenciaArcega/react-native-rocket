@@ -4,10 +4,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from '@/app/core/login/Login';
 import ForgotPassword from '../core/login/ForgotPassword';
 import SignUp from '../core/login/SignUp';
+import { useAppearance } from '../hooks/useAppearance';
 
 export function RouterNoSession() {
 	const stack = createNativeStackNavigator()
 	const [isFirstTime, setIsFirstTime] = useState<boolean | null>(null)
+	const { isDarkMode } = useAppearance()
 	// const [isValidating, setIsValidating] = useState<boolean>(true)
 
 	// useEffect(() => {
@@ -30,7 +32,15 @@ export function RouterNoSession() {
 	return (
 		// !isValidating && <stack.Navigator
 		<stack.Navigator
-			screenOptions={{ headerBackTitle: "Atrás" }}
+			screenOptions={{
+				headerBackTitle: "Atrás",
+				headerStyle: {
+					backgroundColor: isDarkMode ? "black" : "white"
+				},
+				headerTitleStyle: {
+					color: !isDarkMode ? "black" : "white"
+				}
+			}}
 			initialRouteName={isFirstTime ? "Login" : "Login"}>
 			<stack.Screen
 				name="Login"

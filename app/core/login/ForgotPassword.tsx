@@ -6,11 +6,13 @@ import { InterWeight } from "@/app/constants/fonts";
 import { gs } from "@/app/constants/generalStyles";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { appColors as ac } from "@/app/constants/colors";
+import { Alert, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { appColors as ac, appColors } from "@/app/constants/colors";
+import { inpToken, wrView } from "@/app/utils/tw-ui";
 
 export default function ForgotPassword() {
 	const [phone, setPhone] = useState(null)
+	const [timer, setTimer] = useState(60)
 	const [isSendingToken, setIsSendingToken] = useState(false)
 	const [isValidating, setIsValidating] = useState(false)
 	const [isTokenSent, setIsTokenSent] = useState(false)
@@ -21,14 +23,22 @@ export default function ForgotPassword() {
 		token3: null,
 		token4: null,
 	})
+	const timerRef = useRef(null);
 	const firstInput = useRef<TextInput>(null)
 	const secondInput = useRef<TextInput>(null)
 	const thirdInput = useRef<TextInput>(null)
 	const fourthInput = useRef<TextInput>(null)
 
-	useEffect(function () {
+	useEffect(() => {
 		if (!isTokenSent) return
-		firstInput.current?.focus()
+
+		firstInput.current?.focus();
+
+		timerRef.current = setInterval(() => {
+			setTimer(prev => prev > 0 ? prev - 1 : 0);
+		}, 1000);
+
+		return () => clearInterval(timerRef.current);
 	}, [])
 
 	const captureToken_onChangeText = function (value: string, tokenPart: string, nextInputRef?: React.RefObject<TextInput>) {
@@ -72,17 +82,34 @@ export default function ForgotPassword() {
 		// }
 	}
 
-	return <View style={gs.containerBg}>
+	const resendCode_onPress = async function () {
+		try {
+			// if (data.phone != null) {
+			// 	const request = await fetch(`${API_URL}UserSystemGeneral/ValidateForgotPassword?value=${String(data.phone)}`)
+			// 	const json = await request.json()
+			// 	setResendToken(json.idCodigo)
+			// }
+			// Toast.show({ type: 'successShort', text1: 'Código reenviado' });
+			setTimer(60)
+		} catch (error) {
+			Alert.alert("Error al enviar token", error.message)
+		}
+		firstInput.current?.focus()
+	}
+
+	return <View className={wrView}>
 		<KeyboardScroll>
-			{isTokenSent ? <View style={gs.containerTight}>
-				<Text style={{ fontSize: 19, lineHeight: 32, marginTop: 16, color: "gray" }}>Se envió un código de verificación de 4 digitos al número <Text style={{
-					fontFamily: InterWeight.w500,
-					color: "#181818"
-				}}>{phone}</Text>, ingresalo para comprobar tu identidad.</Text>
-				<View style={s.wrapperToken}>
+			{isTokenSent ? <View className="px-4">
+				<Text
+					className="text-gray-500 text-lg mt-4"
+				>Se envió un código de verificación de 4 digitos al número{" "}
+					<Text
+						className="font-medium text-black dark:text-white">
+						{phone}</Text>, ingresalo para comprobar tu identidad.</Text>
+				<View className="max-w-full flex-row mt-8 justify-between">
 					<TextInput
 						ref={firstInput}
-						style={s.inputToken}
+						className={inpToken}
 						keyboardType="number-pad"
 						value={token.token1}
 						maxLength={1}
@@ -91,7 +118,7 @@ export default function ForgotPassword() {
 					/>
 					<TextInput
 						ref={secondInput}
-						style={s.inputToken}
+						className={inpToken}
 						keyboardType="number-pad"
 						value={token.token2}
 						maxLength={1}
@@ -100,7 +127,7 @@ export default function ForgotPassword() {
 					/>
 					<TextInput
 						ref={thirdInput}
-						style={s.inputToken}
+						className={inpToken}
 						keyboardType="number-pad"
 						value={token.token3}
 						maxLength={1}
@@ -109,7 +136,7 @@ export default function ForgotPassword() {
 					/>
 					<TextInput
 						ref={fourthInput}
-						style={s.inputToken}
+						className={inpToken}
 						keyboardType="number-pad"
 						value={token.token4}
 						maxLength={1}
@@ -118,12 +145,13 @@ export default function ForgotPassword() {
 					/>
 				</View>
 
-				{/* <Text style={s.txtTipToken}>
-				¿No recibiste el mensaje? {timer > 0 && "Espera " + timer + `${(timer == 1) ? " segundo" : " segundos"}`}
-			</Text>
-			<Text disabled={timer > 0}
-				onPress={resendCode_onPress}
-				style={[s.txtTipTokenAction, { color: timer > 0 ? "gray" : appColors.p800 }]}>Reenviar código</Text> */}
+				<Text className="text-black dark:text-white mt-8">
+					¿No recibiste el mensaje? {timer > 0 && "Espera " + timer + `${(timer == 1) ? " segundo" : " segundos"}`}
+				</Text>
+				<Text disabled={timer > 0}
+					onPress={resendCode_onPress}
+					className="mt-2 underline font-bold"
+					style={{ color: timer > 0 ? "gray" : appColors.p500 }}>Reenviar código</Text>
 				<Pressable
 					style={[gs.btnBase, { marginTop: 48, marginBottom: 12, }]}
 					onPress={verifyAndRegister_onPress}
@@ -131,8 +159,9 @@ export default function ForgotPassword() {
 					<CustomLinearGradient>
 						{isValidating
 							? <LoaderBtn />
-							: <MaterialIcons name="verified" size={24} color="white" />}
-						<Text style={gs.btnBaseTxt}>Verificar</Text>
+							: <><MaterialIcons name="verified" size={24} color="white" />
+								<Text style={gs.btnBaseTxt}>Verificar</Text>
+							</>}
 					</CustomLinearGradient>
 				</Pressable>
 			</View>
@@ -163,31 +192,3 @@ export default function ForgotPassword() {
 		</KeyboardScroll>
 	</View>
 }
-
-const s = StyleSheet.create({
-	wrapperToken: {
-		maxWidth: "100%",
-		flexDirection: "row",
-		marginTop: 48,
-		justifyContent: "space-between",
-	},
-	inputToken: {
-		height: 92,
-		width: 80,
-		backgroundColor: "#f2f2f7",
-		borderRadius: 20,
-		fontSize: 40,
-		textAlign: "center",
-	},
-	txtTipToken: {
-		marginTop: 24,
-		fontFamily: InterWeight.w600,
-		fontSize: 16
-	},
-	txtTipTokenAction: {
-		marginTop: 8,
-		fontFamily: InterWeight.w500,
-		color: ac.p800,
-		textDecorationLine: "underline",
-	},
-})

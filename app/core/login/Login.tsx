@@ -1,7 +1,6 @@
 import { appColors as ac, appColors } from "@/app/constants/colors";
 import { useState } from "react";
 import { ActivityIndicator, Alert, ImageBackground, Pressable, Text, TextInput, View } from "react-native";
-import { stylesLogin as s } from "./styles/st-login";
 import { gs } from "@/app/constants/generalStyles";
 import { Feather, FontAwesome5, Ionicons, MaterialIcons, Octicons } from "@expo/vector-icons";
 import { CustomLinearGradient } from "@/app/components/Gradients";
@@ -10,14 +9,12 @@ import { MSG } from "@/app/constants/labels";
 import { REG_EMAIL } from "@/app/constants/regularExpressions";
 import { useNavigateApp } from "@/app/hooks/useNavigateApp";
 import { AvoiderKeyboard } from "@/app/components/AvoiderKeyboard";
-import { inpIcon, wrInpIcon, labelInp } from "@/app/utils/tw-ui";
+import { inpIconLight, wrInpIcon, labelInpLight, svgInp, btnTogglePass, wrPass, wrView } from "@/app/utils/tw-ui";
 
 export default function Login() {
 	const { navigateTo } = useNavigateApp()
 	const [email, setEmail] = useState(null)
 	const [pass, setPass] = useState(null)
-	const [isEmailFocused, setIsEmailFocused] = useState(false)
-	const [isPassFocused, setIsPassFocused] = useState(false)
 	const [isShowingPass, setIsShowingPass] = useState(false)
 	const [isLogingIn, setIsLogingIn] = useState(false)
 
@@ -47,14 +44,14 @@ export default function Login() {
 
 	return <ImageBackground
 		source={require("@/assets/img/login/app-login-bg.png")}
-		style={gs.containerBg}>
+		className="flex-1">
 		<AvoiderKeyboard>
-			<View style={s.wrapperForm} className="pt-1">
+			<View className="flex-1 pt-[46%] px-5">
 				<View style={gs.circleIcon}>
 					<FontAwesome5 name="user-lock" size={36} color="white" />
 				</View>
 
-				<Text className={labelInp}>Correo electrónico</Text>
+				<Text className={labelInpLight}>Correo electrónico</Text>
 				<View className={wrInpIcon}>
 					<TextInput
 						value={email}
@@ -62,14 +59,14 @@ export default function Login() {
 						placeholderTextColor={"#bbb"}
 						inputMode="email"
 						keyboardType="email-address"
-						className={inpIcon}
+						className={inpIconLight}
 						onChangeText={v => setEmail(v)}
 					/>
-					<Ionicons style={{ position: "absolute", left: 16 }} name="mail-outline" size={24} color="black" />
+					<Ionicons style={svgInp} name="mail-outline" size={24} color="black" />
 				</View>
 
-				<Text className={labelInp}>Contraseña</Text>
-				<View style={s.wrapperPass}>
+				<Text className={labelInpLight}>Contraseña</Text>
+				<View className={wrPass}>
 					<View className={wrInpIcon + " w-[86%]"}>
 						<TextInput
 							secureTextEntry={!isShowingPass}
@@ -78,15 +75,15 @@ export default function Login() {
 							placeholderTextColor={"#bbb"}
 							inputMode="text"
 							keyboardType="visible-password"
-							className={inpIcon}
+							className={inpIconLight}
 							onChangeText={v => setPass(v)}
 						/>
-						<Feather style={{ position: "absolute", left: 16 }} name="lock" size={22} color="black" />
+						<Feather style={svgInp} name="lock" size={22} color="black" />
 					</View>
 					<Pressable
-						style={s.btnShowPass}
+						className={btnTogglePass}
 						onPress={() => setIsShowingPass(!isShowingPass)}>
-						<Octicons name={isShowingPass ? "eye-closed" : "eye"} size={28} color={isPassFocused ? appColors.p600 : "gray"} />
+						<Octicons name={isShowingPass ? "eye-closed" : "eye"} size={28} color={appColors.p600} />
 					</Pressable>
 				</View>
 
@@ -108,9 +105,10 @@ export default function Login() {
 					</CustomLinearGradient>
 				</Pressable>
 
-				<Text style={s.txtSignUp}>¿No tienes una cuenta?{"\n"}
+				<Text className="mt-6 text-[18px] text-black text-center">
+					¿No tienes una cuenta?{"\n"}
 					<Text
-						style={s.txtSignUpPress}
+						className="w-full text-p600"
 						onPress={() => navigateTo("SignUp")}>
 						Registrate ahora</Text>.
 				</Text>

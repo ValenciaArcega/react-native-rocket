@@ -13,6 +13,7 @@ export function AvoiderKeyboard({ children, offset = 0 }: {
 		<ScrollView
 			contentInsetAdjustmentBehavior="automatic"
 			keyboardDismissMode="on-drag"
+			showsVerticalScrollIndicator={false}
 			keyboardShouldPersistTaps='handled'
 			contentContainerStyle={gs.scroll}>
 			{children}
