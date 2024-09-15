@@ -15,7 +15,7 @@ module.exports = {
         p700: "#2c32a7",
         p800: "#2b3184",
         p900: "#191b4d",
-        bgDark: "#101010",
+        bgDark: "#0A0A0A",
         bgLight: "#fff",
         d: {
           p900: "#edf4ff",
