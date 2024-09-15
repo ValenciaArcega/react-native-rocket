@@ -33,13 +33,6 @@ export const stylesLogin = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 	},
-	txtForgotPass: {
-		fontSize: 16,
-		textAlign: "right",
-		color: ac.p700,
-		textDecorationLine: "underline",
-		marginTop: 14,
-	},
 	txtSignUp: {
 		marginTop: 22,
 		fontSize: 18,

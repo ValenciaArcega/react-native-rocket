@@ -5,17 +5,18 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SplashScreenHandler from "@/app/core/splashscreen/SplashScreen"
 import Router from '@/app/routes/Router';
 import { KeyboardAvoiderProvider } from "@/app/components/KeyboardScroll";
-
-// migration! 
+import { useColorScheme } from 'react-native';
 
 export default function App() {
+  const colorScheme = useColorScheme()
+
   return <NavigationContainer>
     <UserContext>
       <GestureHandlerRootView>
         <KeyboardAvoiderProvider>
           <SplashScreenHandler>
             <StatusBar
-              style="auto"
+              style={colorScheme == "dark" ? "light" : "dark"}
               translucent={true}
               backgroundColor="transparent" />
             <Router />

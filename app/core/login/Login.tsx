@@ -3,14 +3,14 @@ import { useState } from "react";
 import { ActivityIndicator, Alert, ImageBackground, Pressable, Text, TextInput, View } from "react-native";
 import { stylesLogin as s } from "./styles/st-login";
 import { gs } from "@/app/constants/generalStyles";
-import { FontAwesome5, MaterialIcons, Octicons } from "@expo/vector-icons";
+import { Feather, FontAwesome5, Ionicons, MaterialIcons, Octicons } from "@expo/vector-icons";
 import { CustomLinearGradient } from "@/app/components/Gradients";
 import { AlertError } from "@/app/components/Alerts";
 import { MSG } from "@/app/constants/labels";
 import { REG_EMAIL } from "@/app/constants/regularExpressions";
 import { useNavigateApp } from "@/app/hooks/useNavigateApp";
-import { KeyboardScroll } from "@/app/components/KeyboardScroll";
 import { AvoiderKeyboard } from "@/app/components/AvoiderKeyboard";
+import { inpIcon, wrInpIcon, labelInp } from "@/app/utils/tw-ui";
 
 export default function Login() {
 	const { navigateTo } = useNavigateApp()
@@ -49,55 +49,50 @@ export default function Login() {
 		source={require("@/assets/img/login/app-login-bg.png")}
 		style={gs.containerBg}>
 		<AvoiderKeyboard>
-			<View style={s.wrapperForm}>
+			<View style={s.wrapperForm} className="pt-1">
 				<View style={gs.circleIcon}>
 					<FontAwesome5 name="user-lock" size={36} color="white" />
 				</View>
-				<Text style={s.titleLogin}>Accede a Rocket 🚀</Text>
 
-				<Text style={gs.labelInput}>Correo electrónico</Text>
-				<TextInput
-					value={email}
-					placeholder="Ingresa tu correo electrónico"
-					inputMode="email"
-					keyboardType="email-address"
-					style={[gs.input__basic, {
-						borderWidth: 3,
-						borderColor: isEmailFocused ? ac.p600 : "transparent",
-						backgroundColor: isEmailFocused ? ac.p100 : ac.bgInput,
-					}]}
-					onFocus={() => setIsEmailFocused(true)}
-					onBlur={() => setIsEmailFocused(false)}
-					onChangeText={v => setEmail(v)}
-				/>
-				<Text style={gs.labelInput}>Contraseña</Text>
-				<View style={s.wrapperPass}>
+				<Text className={labelInp}>Correo electrónico</Text>
+				<View className={wrInpIcon}>
 					<TextInput
-						secureTextEntry={!isShowingPass}
-						value={pass}
-						placeholder="Ingresa tu contraseña"
-						inputMode="text"
-						keyboardType="visible-password"
-						style={[gs.input__basic, {
-							width: "86%",
-							borderWidth: 3,
-							borderColor: isPassFocused ? ac.p600 : "transparent",
-							backgroundColor: isPassFocused ? ac.p100 : ac.bgInput,
-						}]}
-						onFocus={() => setIsPassFocused(true)}
-						onBlur={() => setIsPassFocused(false)}
-						onChangeText={v => setPass(v)}
+						value={email}
+						placeholder="Ingresa tu correo"
+						placeholderTextColor={"#bbb"}
+						inputMode="email"
+						keyboardType="email-address"
+						className={inpIcon}
+						onChangeText={v => setEmail(v)}
 					/>
+					<Ionicons style={{ position: "absolute", left: 16 }} name="mail-outline" size={24} color="black" />
+				</View>
+
+				<Text className={labelInp}>Contraseña</Text>
+				<View style={s.wrapperPass}>
+					<View className={wrInpIcon + " w-[86%]"}>
+						<TextInput
+							secureTextEntry={!isShowingPass}
+							value={pass}
+							placeholder="Ingresa tu contraseña"
+							placeholderTextColor={"#bbb"}
+							inputMode="text"
+							keyboardType="visible-password"
+							className={inpIcon}
+							onChangeText={v => setPass(v)}
+						/>
+						<Feather style={{ position: "absolute", left: 16 }} name="lock" size={22} color="black" />
+					</View>
 					<Pressable
 						style={s.btnShowPass}
 						onPress={() => setIsShowingPass(!isShowingPass)}>
-						<Octicons name={isShowingPass ? "eye-closed" : "eye"} size={32} color={isPassFocused ? appColors.p600 : "gray"} />
+						<Octicons name={isShowingPass ? "eye-closed" : "eye"} size={28} color={isPassFocused ? appColors.p600 : "gray"} />
 					</Pressable>
 				</View>
 
 				<Text
 					onPress={() => navigateTo("ForgotPassword")}
-					style={s.txtForgotPass}
+					className="text-right text-[16px] text-p600 underline mt-3"
 				>¿Olvidaste tu contraseña?</Text>
 
 				<Pressable
