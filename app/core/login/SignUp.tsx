@@ -1,10 +1,11 @@
 import { AvoiderKeyboard } from "@/app/components/AvoiderKeyboard";
 import { CustomLinearGradient } from "@/app/components/Gradients";
+import { LoaderBtn } from "@/app/components/Loaders";
 import { appColors } from "@/app/constants/colors";
 import { InterWeight } from "@/app/constants/fonts";
 import { useAppearance } from "@/app/hooks/useAppearance";
 import { btnBase, btnTogglePass, inpIcon, labelInp, svgInp, txtBtnBase, wrInpIcon, wrPass, wrView } from "@/app/utils/tw-ui";
-import { Feather, FontAwesome5, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
+import { Feather, FontAwesome5, Ionicons, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
 
@@ -17,6 +18,7 @@ export default function SignUp() {
 	const [errorPassConfirm, setErrorPassConfirm] = useState(null)
 	const [frErrorConfirmPass, setFrErrorConfirmPass] = useState("#ff3c3c")
 	const [isShowingPassConfirm, setIsShowingPassConfirm] = useState(false)
+	const [isRegistering, setIsRegistering] = useState(false)
 	const { isDarkMode } = useAppearance()
 	const svgInpColor = isDarkMode ? "gray" : "black"
 
@@ -141,9 +143,16 @@ export default function SignUp() {
 				</View>
 				<Text className="mt-2 pl-2 text-[14px] font-medium" style={{ color: frErrorConfirmPass }}>{errorPassConfirm}</Text>
 
-				<Pressable className={btnBase}>
+				<Pressable
+					onPress={() => setIsRegistering(true)}
+					className={btnBase}>
 					<CustomLinearGradient>
-						<Text className={txtBtnBase}>Hello</Text>
+						{isRegistering
+							? <LoaderBtn />
+							: <>
+								<Text className={txtBtnBase}>Registrarme</Text>
+								<Ionicons name="person-add" size={24} color="white" />
+							</>}
 					</CustomLinearGradient>
 				</Pressable>
 			</View>

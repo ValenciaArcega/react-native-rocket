@@ -12,6 +12,7 @@ import { TextStyle } from "react-native"
  */
 export const wrView = "flex-1 bg-bgLight dark:bg-bgDark"
 export const overlay = "absolute top-0 left-0 flex h-full w-full items-center justify-center bg-gray-500 dark:bg-black opacity-[0.8]"
+export const circleIcon = "my-4 h-[112px] w-[112px] rounded-full border-[13px] border-p200 dark:border-p900 bg-p500 dark:bg-p600 items-center justify-center"
 
 /**
  * @forms

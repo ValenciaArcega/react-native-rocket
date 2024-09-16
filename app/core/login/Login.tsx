@@ -10,9 +10,11 @@ import { useNavigateApp } from "@/app/hooks/useNavigateApp";
 import { AvoiderKeyboard } from "@/app/components/AvoiderKeyboard";
 import { inpIconLight, wrInpIcon, labelInpLight, svgInp, btnTogglePass, wrPass, wrView, btnBase, txtBtnBase, overlay } from "@/app/utils/tw-ui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useUser } from "@/app/hooks/useUser";
 
 export default function Login() {
 	const { navigateTo } = useNavigateApp()
+	const { setUser } = useUser()
 	const [email, setEmail] = useState(null)
 	const [pass, setPass] = useState(null)
 	const [isShowingPass, setIsShowingPass] = useState(false)
@@ -26,7 +28,7 @@ export default function Login() {
 	const validateAppLoad = async function () {
 		const flag = Boolean(JSON.parse(await AsyncStorage.getItem("HAS_BEEN_INSTALLED")))
 
-		if (!flag) {
+		if (flag) {
 			setIsValidating(false)
 		} else {
 			navigateTo("Onboarding")
@@ -36,6 +38,9 @@ export default function Login() {
 	}
 
 	const login_onPress = async function () {
+		setUser({})
+		return
+
 		if (!email || email.trim() == "") {
 			Alert.alert("Error al entrar", "El correo electrónico es obligatorio")
 			return
