@@ -1,5 +1,5 @@
 import { appColors as ac, appColors } from "@/app/constants/colors";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ActivityIndicator, Alert, Button, ImageBackground, Pressable, Text, TextInput, View } from "react-native";
 import { Feather, FontAwesome5, Ionicons, MaterialIcons, Octicons } from "@expo/vector-icons";
 import { CustomLinearGradient } from "@/app/components/Gradients";
@@ -9,6 +9,7 @@ import { REG_EMAIL } from "@/app/constants/regularExpressions";
 import { useNavigateApp } from "@/app/hooks/useNavigateApp";
 import { AvoiderKeyboard } from "@/app/components/AvoiderKeyboard";
 import { inpIconLight, wrInpIcon, labelInpLight, svgInp, btnTogglePass, wrPass, wrView, btnBase, txtBtnBase, overlay } from "@/app/utils/tw-ui";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login() {
 	const { navigateTo } = useNavigateApp()
@@ -16,6 +17,23 @@ export default function Login() {
 	const [pass, setPass] = useState(null)
 	const [isShowingPass, setIsShowingPass] = useState(false)
 	const [isLogingIn, setIsLogingIn] = useState(false)
+	const [isValidating, setIsValidating] = useState<boolean>(true)
+
+	useEffect(() => {
+		validateAppLoad()
+	}, [])
+
+	const validateAppLoad = async function () {
+		const flag = Boolean(JSON.parse(await AsyncStorage.getItem("HAS_BEEN_INSTALLED")))
+
+		if (!flag) {
+			setIsValidating(false)
+		} else {
+			navigateTo("Onboarding")
+			await AsyncStorage.setItem("HAS_BEEN_INSTALLED", JSON.stringify(true))
+			setIsValidating(false)
+		}
+	}
 
 	const login_onPress = async function () {
 		if (!email || email.trim() == "") {
@@ -41,7 +59,7 @@ export default function Login() {
 		// }
 	}
 
-	return <ImageBackground
+	return !isValidating && <ImageBackground
 		source={require("@/assets/img/login/app-login-bg.png")}
 		className="flex-1">
 		<AvoiderKeyboard>

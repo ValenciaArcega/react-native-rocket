@@ -5,32 +5,13 @@ import Login from '@/app/core/login/Login';
 import ForgotPassword from '../core/login/ForgotPassword';
 import SignUp from '../core/login/SignUp';
 import { useAppearance } from '../hooks/useAppearance';
+import { Onboarding } from '../core/onboarding/Onboarding';
 
 export function RouterNoSession() {
 	const stack = createNativeStackNavigator()
-	const [isFirstTime, setIsFirstTime] = useState<boolean | null>(null)
 	const { isDarkMode } = useAppearance()
-	// const [isValidating, setIsValidating] = useState<boolean>(true)
-
-	// useEffect(() => {
-	// 	validateAppLoad()
-	// }, [])
-
-	// const validateAppLoad = async function () {
-	// 	const flag = Boolean(JSON.parse(await AsyncStorage.getItem("HAS_BEEN_INSTALLED")))
-
-	// 	if (flag) {
-	// 		setIsFirstTime(false)
-	// 		setIsValidating(false)
-	// 	} else {
-	// 		setIsFirstTime(true)
-	// 		await AsyncStorage.setItem("HAS_BEEN_INSTALLED", JSON.stringify(true))
-	// 		setIsValidating(false)
-	// 	}
-	// }
 
 	return (
-		// !isValidating && <stack.Navigator
 		<stack.Navigator
 			screenOptions={{
 				headerBackTitle: "Atrás",
@@ -41,7 +22,17 @@ export function RouterNoSession() {
 					color: !isDarkMode ? "black" : "white"
 				}
 			}}
-			initialRouteName={isFirstTime ? "Login" : "Login"}>
+			initialRouteName={"Login"}>
+			<stack.Screen
+				name="Onboarding"
+				component={Onboarding}
+				options={{
+					presentation: "modal",
+					gestureEnabled: false,
+					headerLargeTitle: false,
+					headerShown: false,
+					animation: "slide_from_bottom"
+				}} />
 			<stack.Screen
 				name="Login"
 				component={Login}
