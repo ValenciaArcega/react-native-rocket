@@ -3,12 +3,12 @@ import { CustomLinearGradient } from "@/app/components/Gradients";
 import { KeyboardScroll } from "@/app/components/KeyboardScroll";
 import { LoaderBtn } from "@/app/components/Loaders";
 import { InterWeight } from "@/app/constants/fonts";
-import { gs } from "@/app/constants/generalStyles";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
 import { Alert, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { appColors as ac, appColors } from "@/app/constants/colors";
-import { inpToken, wrView } from "@/app/utils/tw-ui";
+import { btnBase, inp, inpToken, labelInp, txtBtnBase, wrView } from "@/app/utils/tw-ui";
+import { useNavigateApp } from "@/app/hooks/useNavigateApp";
 
 export default function ForgotPassword() {
 	const [phone, setPhone] = useState(null)
@@ -28,9 +28,10 @@ export default function ForgotPassword() {
 	const secondInput = useRef<TextInput>(null)
 	const thirdInput = useRef<TextInput>(null)
 	const fourthInput = useRef<TextInput>(null)
+	const { navigation } = useNavigateApp()
 
 	useEffect(() => {
-		if (!isTokenSent) return
+		// if (!isTokenSent) return
 
 		firstInput.current?.focus();
 
@@ -153,40 +154,55 @@ export default function ForgotPassword() {
 					className="mt-2 underline font-bold"
 					style={{ color: timer > 0 ? "gray" : appColors.p500 }}>Reenviar código</Text>
 				<Pressable
-					style={[gs.btnBase, { marginTop: 48, marginBottom: 12, }]}
-					onPress={verifyAndRegister_onPress}
-				>
+					className={btnBase + " mt-12 mb-3"}
+					onPress={verifyAndRegister_onPress}>
 					<CustomLinearGradient>
 						{isValidating
 							? <LoaderBtn />
-							: <><MaterialIcons name="verified" size={24} color="white" />
-								<Text style={gs.btnBaseTxt}>Verificar</Text>
+							: <>
+								<MaterialIcons name="verified" size={26} color="white" />
+								<Text className={txtBtnBase}>Verificar</Text>
 							</>}
 					</CustomLinearGradient>
 				</Pressable>
+
+				<Pressable
+					onPress={() => navigation.goBack()}
+					className="flex items-center justify-center h-16">
+					<Text className="text-red-500 dark:text-red-400 text-lg">Cancelar Recuperación</Text>
+				</Pressable>
 			</View>
 				: <CustomBottomSheet
-					snapPoints={["50%", "60%"]}>
+					snapPoints={["50%", "60%", "85%"]}>
 					<Ionicons name="call-outline" size={38} color={ac.p500} />
-					<Text style={gs.labelInput}>Celular con el que te registraste</Text>
+					<Text className={labelInp}>Celular con el que te registraste</Text>
 					<TextInput
 						maxLength={10}
 						value={phone}
 						keyboardType="phone-pad"
 						inputMode="numeric"
-						style={gs.input__basic}
-						placeholder="Ingresa tu número de teléfono"
+						className={inp}
+						placeholder="Número de teléfono"
+						placeholderTextColor={"gray"}
 						onChangeText={v => setPhone(v)}
 					/>
 					<Pressable
 						onPress={sendToken_onPress}
-						style={gs.btnBase}>
+						className={btnBase}>
 						<CustomLinearGradient>
 							{isSendingToken
 								? <LoaderBtn />
-								: <Text style={gs.btnBaseTxt}>
-									Enviar Token</Text>}
+								: <View className="gap-x-2 flex-row items-center">
+									<FontAwesome name="send" size={22} color="white" />
+									<Text className={txtBtnBase}>
+										Enviar Token</Text>
+								</View>}
 						</CustomLinearGradient>
+					</Pressable>
+					<Pressable
+						onPress={() => navigation.goBack()}
+						className="flex items-center justify-center h-16 mt-2">
+						<Text className="text-red-500 dark:text-red-400 text-lg">Cancelar</Text>
 					</Pressable>
 				</CustomBottomSheet>}
 		</KeyboardScroll>

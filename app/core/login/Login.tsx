@@ -1,7 +1,6 @@
 import { appColors as ac, appColors } from "@/app/constants/colors";
 import { useState } from "react";
-import { ActivityIndicator, Alert, ImageBackground, Pressable, Text, TextInput, View } from "react-native";
-import { gs } from "@/app/constants/generalStyles";
+import { ActivityIndicator, Alert, Button, ImageBackground, Pressable, Text, TextInput, View } from "react-native";
 import { Feather, FontAwesome5, Ionicons, MaterialIcons, Octicons } from "@expo/vector-icons";
 import { CustomLinearGradient } from "@/app/components/Gradients";
 import { AlertError } from "@/app/components/Alerts";
@@ -9,7 +8,7 @@ import { MSG } from "@/app/constants/labels";
 import { REG_EMAIL } from "@/app/constants/regularExpressions";
 import { useNavigateApp } from "@/app/hooks/useNavigateApp";
 import { AvoiderKeyboard } from "@/app/components/AvoiderKeyboard";
-import { inpIconLight, wrInpIcon, labelInpLight, svgInp, btnTogglePass, wrPass, wrView } from "@/app/utils/tw-ui";
+import { inpIconLight, wrInpIcon, labelInpLight, svgInp, btnTogglePass, wrPass, wrView, btnBase, txtBtnBase, overlay } from "@/app/utils/tw-ui";
 
 export default function Login() {
 	const { navigateTo } = useNavigateApp()
@@ -47,7 +46,7 @@ export default function Login() {
 		className="flex-1">
 		<AvoiderKeyboard>
 			<View className="flex-1 pt-[46%] px-5">
-				<View style={gs.circleIcon}>
+				<View className="h-[112px] w-[112px] rounded-full border-[11px] border-p200 bg-p500 items-center justify-center">
 					<FontAwesome5 name="user-lock" size={36} color="white" />
 				</View>
 
@@ -94,13 +93,13 @@ export default function Login() {
 
 				<Pressable
 					onPress={login_onPress}
-					style={gs.btnBase}>
-					<CustomLinearGradient>
+					className={btnBase}>
+					<CustomLinearGradient colors={[appColors.p400, appColors.p600]}>
 						{isLogingIn
 							? <ActivityIndicator size="small" color="white" />
 							: <>
 								<MaterialIcons name="verified" size={28} color="white" />
-								<Text style={gs.btnBaseTxt}>Entrar</Text>
+								<Text className={txtBtnBase}>Entrar</Text>
 							</>}
 					</CustomLinearGradient>
 				</Pressable>

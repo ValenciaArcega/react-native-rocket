@@ -1,9 +1,10 @@
 import { AvoiderKeyboard } from "@/app/components/AvoiderKeyboard";
+import { CustomLinearGradient } from "@/app/components/Gradients";
 import { appColors } from "@/app/constants/colors";
 import { InterWeight } from "@/app/constants/fonts";
 import { useAppearance } from "@/app/hooks/useAppearance";
-import { btnTogglePass, inpIcon, inpIconLight, labelInp, labelInpLight, svgInp, wrInpIcon, wrPass, wrView } from "@/app/utils/tw-ui";
-import { Entypo, Feather, FontAwesome5, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
+import { btnBase, btnTogglePass, inpIcon, labelInp, svgInp, txtBtnBase, wrInpIcon, wrPass, wrView } from "@/app/utils/tw-ui";
+import { Feather, FontAwesome5, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
 
@@ -12,8 +13,27 @@ export default function SignUp() {
 	const [phone, setPhone] = useState(null)
 	const [pass, setPass] = useState(null)
 	const [isShowingPass, setIsShowingPass] = useState(false)
+	const [passConfirm, setPassConfirm] = useState(null)
+	const [errorPassConfirm, setErrorPassConfirm] = useState(null)
+	const [frErrorConfirmPass, setFrErrorConfirmPass] = useState("#ff3c3c")
+	const [isShowingPassConfirm, setIsShowingPassConfirm] = useState(false)
 	const { isDarkMode } = useAppearance()
 	const svgInpColor = isDarkMode ? "gray" : "black"
+
+	function inputPassConfirm_onChangeText(value: string) {
+		if (value == undefined) return
+
+		if (value == "") setErrorPassConfirm("")
+		else if (value == pass) {
+			setFrErrorConfirmPass("green")
+			setErrorPassConfirm('¡Coinciden!')
+			setPassConfirm(value.trim())
+		} else {
+			setFrErrorConfirmPass("#ff3c3c")
+			setErrorPassConfirm('Las contraseñas no coinciden')
+			setPassConfirm(value.trim())
+		}
+	}
 
 	return <View className={wrView}>
 		<AvoiderKeyboard>
@@ -73,13 +93,19 @@ export default function SignUp() {
 					<View className={wrInpIcon + " w-[86%]"}>
 						<TextInput
 							secureTextEntry={!isShowingPass}
+							textContentType={'newPassword'}
+							blurOnSubmit={false}
 							value={pass}
 							placeholder="Crea una contraseña"
 							placeholderTextColor={"#bbb"}
 							inputMode="text"
 							keyboardType="visible-password"
 							className={inpIcon}
-							onChangeText={v => setPass(v)}
+							onChangeText={v => {
+								setPass(v.trim())
+								setPassConfirm(null)
+								setErrorPassConfirm("")
+							}}
 						/>
 						<Feather style={svgInp} name="lock" size={22} color={svgInpColor} />
 					</View>
@@ -89,6 +115,37 @@ export default function SignUp() {
 						<Octicons name={isShowingPass ? "eye-closed" : "eye"} size={28} color={appColors.p600} />
 					</Pressable>
 				</View>
+
+				<Text className={labelInp}>Confirmar Contraseña</Text>
+				<View className={wrPass}>
+					<View className={wrInpIcon + " w-[86%]"}>
+						<TextInput
+							secureTextEntry={!isShowingPassConfirm}
+							textContentType={'newPassword'}
+							blurOnSubmit={false}
+							value={passConfirm}
+							placeholder="Repite tu contraseña"
+							placeholderTextColor={"#bbb"}
+							inputMode="text"
+							keyboardType="visible-password"
+							className={inpIcon}
+							onChangeText={inputPassConfirm_onChangeText}
+						/>
+						<Feather style={svgInp} name="lock" size={22} color={svgInpColor} />
+					</View>
+					<Pressable
+						className={btnTogglePass}
+						onPress={() => setIsShowingPassConfirm(!isShowingPassConfirm)}>
+						<Octicons name={isShowingPassConfirm ? "eye-closed" : "eye"} size={28} color={appColors.p600} />
+					</Pressable>
+				</View>
+				<Text className="mt-2 pl-2 text-[14px] font-medium" style={{ color: frErrorConfirmPass }}>{errorPassConfirm}</Text>
+
+				<Pressable className={btnBase}>
+					<CustomLinearGradient>
+						<Text className={txtBtnBase}>Hello</Text>
+					</CustomLinearGradient>
+				</Pressable>
 			</View>
 		</AvoiderKeyboard>
 	</View>

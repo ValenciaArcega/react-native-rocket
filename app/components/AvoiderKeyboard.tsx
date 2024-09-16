@@ -1,4 +1,3 @@
-import { gs } from "../constants/generalStyles"
 import { isiOS } from "../constants/platform"
 import { KeyboardAvoidingView, ScrollView } from "react-native"
 
@@ -15,7 +14,13 @@ export function AvoiderKeyboard({ children, offset = 0 }: {
 			keyboardDismissMode="on-drag"
 			showsVerticalScrollIndicator={false}
 			keyboardShouldPersistTaps='handled'
-			contentContainerStyle={gs.scroll}>
+			// contentContainerStyle={{
+			// overflow: "visible",
+			// 	minHeight: "100%",
+			// 	flexGrow: 1,
+			// }}
+			className="flex-grow overflow-hidden min-h-full"
+		>
 			{children}
 		</ScrollView>
 	</KeyboardAvoidingView>
