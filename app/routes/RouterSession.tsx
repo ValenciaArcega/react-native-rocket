@@ -1,18 +1,39 @@
 import Login from '@/app/core/login/Login';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Home } from '../screens/Home';
+import { Home } from '../core/home/Home';
+import { CompleteProfile } from '../core/home/CompleteProfile';
+import { Map } from '../core/others/Map';
+import { useAppearance } from '../hooks/useAppearance';
 
 export function RouterSession() {
 	const stack = createNativeStackNavigator()
+	const { isDarkMode } = useAppearance()
 
 	return (
 		<stack.Navigator
-			screenOptions={{ headerBackTitle: "Atrás" }}
-			initialRouteName={"Home"}>
+			screenOptions={{
+				headerBackTitle: "Atrás",
+				headerStyle: {
+					backgroundColor: isDarkMode ? "#0a0a0a" : "#fff"
+				},
+				headerTitleStyle: {
+					color: !isDarkMode ? "#0a0a0a" : "#fff"
+				},
+				headerTintColor: !isDarkMode ? "#748ffc" : "#fff",
+			}}
+			initialRouteName="Home">
 			<stack.Screen
 				name="Home"
 				component={Home}
 				options={{ headerShown: false, animation: "simple_push" }} />
+			<stack.Screen
+				name="CompleteProfile"
+				component={CompleteProfile}
+				options={{
+					title: "Completa tu perfil",
+					headerShown: true,
+					animation: "slide_from_right"
+				}} />
 		</stack.Navigator>
 	)
 }

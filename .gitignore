@@ -45,3 +45,7 @@ obj
 bin
 
 rocket-guides.excalidraw
+google-services.json
+GoogleService-Info.plist
+
+data-access-layer

@@ -1,8 +1,6 @@
 
-# The project had been created with
-
+# The project has been created with
 npx create-expo-app@latest --template blank-typescript
 
-
-# Update or fix compatibility dependencies
+# To Update or fix compatibility on dependencies
 npx expo install --fix

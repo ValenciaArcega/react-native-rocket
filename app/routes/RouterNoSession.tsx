@@ -6,6 +6,8 @@ import ForgotPassword from '../core/login/ForgotPassword';
 import SignUp from '../core/login/SignUp';
 import { useAppearance } from '../hooks/useAppearance';
 import { Onboarding } from '../core/onboarding/Onboarding';
+import { Map } from '../core/others/Map';
+import { Panel } from '../core/others/Panel';
 
 export function RouterNoSession() {
 	const stack = createNativeStackNavigator()
@@ -47,7 +49,7 @@ export function RouterNoSession() {
 					headerTitle: "",
 					headerTransparent: true,
 					headerStyle: {},
-					headerBlurEffect: "light",
+					headerBlurEffect: isDarkMode ? "dark" : "light",
 				}} />
 			<stack.Screen
 				name="ForgotPassword"
@@ -59,6 +61,15 @@ export function RouterNoSession() {
 					gestureEnabled: false,
 					animation: "slide_from_bottom"
 				}} />
+			{/* Others */}
+			<stack.Screen
+				name="Map"
+				component={Map}
+				options={{ headerShown: false, animation: "slide_from_right" }} />
+			<stack.Screen
+				name="Panel"
+				component={Panel}
+				options={{ headerShown: true, animation: "slide_from_right" }} />
 		</stack.Navigator>
 	)
 }

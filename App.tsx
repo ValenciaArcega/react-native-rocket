@@ -13,15 +13,15 @@ export default function App() {
   return <NavigationContainer>
     <UserContext>
       <GestureHandlerRootView>
-        <KeyboardAvoiderProvider>
-          <SplashScreenHandler>
-            <StatusBar
-              style={colorScheme == "dark" ? "light" : "dark"}
-              translucent={true}
-              backgroundColor="transparent" />
-            <Router />
-          </SplashScreenHandler>
-        </KeyboardAvoiderProvider>
+        {/* <KeyboardAvoiderProvider>
+          <SplashScreenHandler> */}
+        <StatusBar
+          style={colorScheme == "dark" ? "light" : "dark"}
+          translucent={true}
+          backgroundColor="transparent" />
+        <Router />
+        {/* </SplashScreenHandler>
+        </KeyboardAvoiderProvider> */}
       </GestureHandlerRootView>
     </UserContext>
   </NavigationContainer>

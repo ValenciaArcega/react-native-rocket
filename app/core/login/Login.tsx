@@ -135,6 +135,10 @@ export default function Login() {
 						Registrate ahora</Text>.
 				</Text>
 			</View>
+
+			<Text
+				onPress={() => navigateTo("Panel")}
+				className="text-center mt-6 underline">Tester Screens</Text>
 		</AvoiderKeyboard>
 	</ImageBackground>
 }

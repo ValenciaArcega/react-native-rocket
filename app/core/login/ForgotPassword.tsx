@@ -11,7 +11,7 @@ import { btnBase, inp, inpToken, labelInp, txtBtnBase, wrView } from "@/app/util
 import { useNavigateApp } from "@/app/hooks/useNavigateApp";
 
 export default function ForgotPassword() {
-	const [phone, setPhone] = useState(null)
+	const [phone, setPhone] = useState("5540901287")
 	const [timer, setTimer] = useState(60)
 	const [isSendingToken, setIsSendingToken] = useState(false)
 	const [isValidating, setIsValidating] = useState(false)
