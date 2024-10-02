@@ -1,8 +1,10 @@
 import { KeyboardScroll } from "@/app/components/KeyboardScroll";
 import { useEffect, useState } from "react";
-import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Image, Pressable, ScrollView, Text, View } from "react-native";
 import { AvoiderKeyboard } from "../../components/AvoiderKeyboard";
-import { labelInp, wrView } from "@/app/utils/tw-ui";
+import { btnBase, labelInp, txtBtnBase, txtSecondary, wrView } from "@/app/utils/tw-ui";
+import { CustomLinearGradient } from "@/app/components/Gradients";
+import { FontAwesome } from "@expo/vector-icons";
 
 const days = [
 	{ ID_DIA: 1, D_DIA: 'L' },
@@ -13,10 +15,17 @@ const days = [
 	{ ID_DIA: 6, D_DIA: 'S' },
 	{ ID_DIA: 7, D_DIA: 'D' },
 ];
-const weekDays = [1, 2, 3, 4, 5]
-const weekendDays = [6, 7]
+const daysMap = {
+	1: 'Lunes',
+	2: 'Martes',
+	3: 'Miércoles',
+	4: 'Jueves',
+	5: 'Viernes',
+	6: 'Sábado',
+	7: 'Domingo'
+};
 
-const goals = [
+const HC_GOALS = [
 	{
 		ID_GOAL: 1,
 		D_GOAL: 'Ganancia muscular',
@@ -37,6 +46,24 @@ const goals = [
 		D_GOAL: 'Pasatiempo',
 		IMG: require('@/assets/img/home/health.png')
 	},
+	{
+		ID_GOAL: 5,
+		D_GOAL: 'Condición Física',
+		IMG: require('@/assets/img/home/running.png')
+	},
+]
+
+const HC_MUSCLES = [
+	{ ID_MUSCLE: 1, D_MUSCLE: "Cuádricep" },
+	{ ID_MUSCLE: 2, D_MUSCLE: "Femoral" },
+	{ ID_MUSCLE: 3, D_MUSCLE: "Glúteo" },
+	{ ID_MUSCLE: 4, D_MUSCLE: "Pantorrilla" },
+	{ ID_MUSCLE: 5, D_MUSCLE: "Abdominales" },
+	{ ID_MUSCLE: 6, D_MUSCLE: "Trícep" },
+	{ ID_MUSCLE: 7, D_MUSCLE: "Bícep" },
+	{ ID_MUSCLE: 8, D_MUSCLE: "Pectoral" },
+	{ ID_MUSCLE: 9, D_MUSCLE: "Espalda" },
+	{ ID_MUSCLE: 10, D_MUSCLE: "Hombro" },
 ]
 
 export function CompleteProfile() {
@@ -47,16 +74,6 @@ export function CompleteProfile() {
 	useEffect(() => {
 		// getTypeOfBranch()
 	}, [])
-
-	const daysMap = {
-		1: 'Lunes',
-		2: 'Martes',
-		3: 'Miércoles',
-		4: 'Jueves',
-		5: 'Viernes',
-		6: 'Sábado',
-		7: 'Domingo'
-	};
 
 	useEffect(() => {
 		let result = '';
@@ -112,15 +129,15 @@ export function CompleteProfile() {
 
 	return <View className={wrView}>
 		<AvoiderKeyboard>
-			<Text className={labelInp + " px-4 pt-8"}>¿Cúal es tu objetivo?</Text>
+			<Text className={labelInp + " px-4"}>¿Cúal es tu objetivo?</Text>
 			<ScrollView
 				style={{ paddingVertical: 12 }}
 				contentContainerStyle={{ paddingRight: 16 }}
 				horizontal={true} showsHorizontalScrollIndicator={false}>
-				{goals.map(item => <Pressable
+				{HC_GOALS.map(item => <Pressable
 					key={item.ID_GOAL}
 					onPress={() => setSelectedGoal(item.ID_GOAL)}
-					className={`bg-gray-200 dark:bg-gray-700 ml-4 rounded-[16px] border-4 ${selectedGoal == item.ID_GOAL ? "border-p600 dark:border-p400" : "border-transparent"}`}>
+					className={`bg-gray-100 dark:bg-gray-700 ml-4 rounded-[16px] border-4 ${selectedGoal == item.ID_GOAL ? "border-p600 dark:border-p500" : "border-transparent"}`}>
 					<Image
 						className="w-[172px] h-[212px]"
 						source={item.IMG} />
@@ -142,7 +159,7 @@ export function CompleteProfile() {
 								key={item.ID_DIA}
 								onPress={() => toggleDays_onPress(item.ID_DIA)}
 								className={`h-12 w-12 rounded-full justify-center items-center ${selectedDays.includes(item.ID_DIA)
-									? 'bg-p400 dark:bg-p500'
+									? 'bg-p400 dark:bg-p800'
 									: 'bg-gray-200 dark:bg-gray-600'
 									}`}>
 								<Text className="text-black dark:text-white text-[19px]">
@@ -152,6 +169,29 @@ export function CompleteProfile() {
 						))}
 					</View>
 				</View>
+
+				<Text className={labelInp}>
+					Musculos objetivos</Text>
+				<Text className={txtSecondary + " mt-1"}>
+					Puedes seleccionar más de uno para un mejor análisis</Text>
+				<View className="mt-2 flex-row flex-wrap">
+					{HC_MUSCLES.map(item => <Pressable
+						key={item.ID_MUSCLE}
+						onPress={() => toggleTypeMuscles_onPress(item.ID_MUSCLE)}
+						className={`rounded-lg mt-3 mr-3 py-1 px-3 ${selectedMuscles.includes(item.ID_MUSCLE) ? "bg-p300 dark:bg-p800" : "bg-gray-200 dark:bg-gray-800"}`}
+					>
+						<Text className="text-black dark:text-white text-[19px]">
+							{item.D_MUSCLE}</Text>
+					</Pressable>)}
+				</View>
+
+				<Pressable className={btnBase}>
+					<CustomLinearGradient>
+						<FontAwesome name="send" size={20} color="#f2f2f7" />
+						<Text className={txtBtnBase}>Enviar Datos</Text>
+						{/* <ActivityIndicator size="small" color="white" /> */}
+					</CustomLinearGradient>
+				</Pressable>
 			</View>
 		</AvoiderKeyboard>
 	</View>

@@ -10,7 +10,7 @@ import { MSG } from '@/app/constants/labels';
 import { BlurView } from "expo-blur";
 import { ModalCompleteProfile } from "../../components/Modal";
 
-export function Home() {
+export function Days() {
 	const { insets } = useSafeAreas()
 
 	useEffect(function () {
@@ -42,13 +42,18 @@ export function Home() {
 			<Text className="text-5xl mt-4 font-bold dark:text-white">
 				Lunes.</Text>
 			{/* <FlatList
-				data={[]}
+				data={[
+					{
+						ID_EXERCISE: 1,
+						D_EXERCISE: "Sentadilla en Smith",
+					}
+				]}
 				ListEmptyComponent={<Text>No hay datos</Text>}
 				renderItem={({ item }) => <Text>{item}</Text>}
 			/> */}
 		</View>
 
-		{1 == 1 && <BlurView intensity={20} tint="dark" className="h-full w-full absolute inset-0 items-center justify-center z-50"
+		{1 !== 1 && <BlurView intensity={20} tint="dark" className="h-full w-full absolute inset-0 items-center justify-center z-50"
 			style={{
 				backgroundColor: 'rgba(0,0,0,0.2)',
 			}}>

@@ -1,6 +1,6 @@
 import Login from '@/app/core/login/Login';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Home } from '../core/home/Home';
+import { Days, Home } from '../core/home/Days';
 import { CompleteProfile } from '../core/home/CompleteProfile';
 import { Map } from '../core/others/Map';
 import { useAppearance } from '../hooks/useAppearance';
@@ -21,10 +21,10 @@ export function RouterSession() {
 				},
 				headerTintColor: !isDarkMode ? "#748ffc" : "#fff",
 			}}
-			initialRouteName="Home">
+			initialRouteName="Days">
 			<stack.Screen
-				name="Home"
-				component={Home}
+				name="Days"
+				component={Days}
 				options={{ headerShown: false, animation: "simple_push" }} />
 			<stack.Screen
 				name="CompleteProfile"
